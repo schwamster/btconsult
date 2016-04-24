@@ -1,22 +1,15 @@
 {
-  "name": "aurelia-skeleton-navigation",
-  "version": "1.0.0-beta.1.2.2",
-  "description": "A starter kit for building a standard navigation-style app with Aurelia.",
-  "keywords": [
-    "aurelia",
-    "navigation",
-    "skeleton"
-  ],
-  "homepage": "http://aurelia.io",
-  "bugs": {
-    "url": "https://github.com/aurelia/skeleton-navigation/issues"
-  },
-  "license": "CC0-1.0",
-  "author": "Rob Eisenberg <rob@bluespire.com> (http://robeisenberg.com/)",
+  "name": "greenelephant",
+  "version": "1.0.1",
+  "description": "greenelephant web site",
+  "keywords": ["greenelephant"  ],
+  "homepage": "http://greenelephant.io",
+  "license": "MIT",
+  "author": "Bastian Töpfer <bastian.toepfer@gmail.com> (http://greenelephant.io/)",
   "main": "dist/main.js",
   "repository": {
     "type": "git",
-    "url": "http://github.com/aurelia/skeleton-navigation"
+    "url": "git+ssh://git@github.com/aurelia/skeleton-navigation.git"
   },
   "scripts": {
     "test": "gulp test",
@@ -84,5 +77,10 @@
       "text": "github:systemjs/plugin-text@^0.0.3"
     },
     "devDependencies": {}
-  }
+  },
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "dependencies": {}
 }
