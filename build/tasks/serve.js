@@ -26,7 +26,7 @@ gulp.task('serve-bundle', ['bundle'], function(done) {
   browserSync({
     online: false,
     open: false,
-    port: 9000,
+    port: process.env.PORT || 9000,
     server: {
       baseDir: ['.'],
       middleware: function(req, res, next) {
