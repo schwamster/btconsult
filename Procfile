@@ -1,1 +1,1 @@
-web: node startServer.js
+web: gulp serve-bundle
