@@ -1,1 +1,1 @@
-web: gulp serve-bundle
+web: gulp serve
