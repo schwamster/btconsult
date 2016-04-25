@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var browserSync = require('browser-sync');
+var paths = require('../paths');
 
 // this task utilizes the browsersync plugin
 // to create a dev server instance
@@ -35,4 +36,12 @@ gulp.task('serve-bundle', ['bundle'], function(done) {
       }
     }
   }, done);
+});
+
+gulp.task('serve-prod', ['bundle'], function() {
+  connect.server({
+    root: [paths.exportSrv],
+    port: process.env.PORT || 5000, // localhost:5000
+    livereload: false
+  });
 });
