@@ -39,7 +39,7 @@ gulp.task('serve-bundle', ['bundle'], function(done) {
 });
 
 gulp.task('serve-prod', ['bundle'], function() {
-  connect.server({
+  $.connect.server({
     root: [paths.exportSrv],
     port: process.env.PORT || 5000, // localhost:5000
     livereload: false
