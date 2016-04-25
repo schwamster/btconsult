@@ -2,7 +2,9 @@
   "name": "greenelephant",
   "version": "1.0.1",
   "description": "greenelephant web site",
-  "keywords": ["greenelephant"],
+  "keywords": [
+    "greenelephant"
+  ],
   "homepage": "http://greenelephant.io",
   "license": "MIT",
   "author": "Bastian Töpfer <bastian.toepfer@gmail.com> (http://greenelephant.io/)",
@@ -36,6 +38,7 @@
     "gulp-babel": "^6.1.2",
     "gulp-bump": "^0.3.1",
     "gulp-changed": "^1.1.0",
+    "gulp-connect": "^3.2.2",
     "gulp-eslint": "^1.0.0",
     "gulp-notify": "^2.2.0",
     "gulp-plumber": "^1.0.1",
