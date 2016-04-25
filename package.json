@@ -13,7 +13,8 @@
   },
   "scripts": {
     "test": "gulp test",
-    "e2e": "gulp serve webdriver-standalone e2e"
+    "e2e": "gulp serve webdriver-standalone e2e",
+    "heroku-prebuild": "npm install jspm && jspm install"
   },
   "dependencies": {
     "aurelia-bundler": "^0.3.0",
