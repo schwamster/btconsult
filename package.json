@@ -61,6 +61,10 @@
     "yargs": "^2.1.1"
   },
   "jspm": {
+    "directories": {
+      "doc": "doc",
+      "test": "test"
+    },
     "dependencies": {
       "aurelia-animator-css": "npm:aurelia-animator-css@^1.0.0-beta.1.1.2",
       "aurelia-bootstrapper": "npm:aurelia-bootstrapper@^1.0.0-beta.1.1.4",
@@ -78,9 +82,9 @@
       "bootstrap": "github:twbs/bootstrap@^3.3.5",
       "fetch": "github:github/fetch@^0.11.0",
       "font-awesome": "npm:font-awesome@^4.5.0",
+      "jquery": "npm:jquery@^2.2.3",
       "text": "github:systemjs/plugin-text@^0.0.3"
-    },
-    "devDependencies": {}
+    }
   },
   "directories": {
     "doc": "doc",
