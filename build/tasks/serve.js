@@ -10,29 +10,43 @@ var paths = require('../paths');
 // at http://localhost:9000
 gulp.task('serve', ['build'], function(done) {
 
-  var proxyOptionsAccessControl = function(req,res, next){
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        next();
-  };
-  var proxyOptionsApiRoute = url.parse(paths.remoteAuthEndpoint +  '/api') ;
-  proxyOptionsApiRoute.route = '/api';
-
-  var proxyOptionsAuthRoute = url.parse(paths.remoteAuthEndpoint +  '/auth') ;
-  proxyOptionsAuthRoute.route = '/auth';
-
   browserSync({
     online: false,
     open: false,
     port: process.env.PORT || 9000,
     server: {
       baseDir: ['.'],
-      middleware: [
-        proxyOptionsAccessControl,
-        proxy(proxyOptionsApiRoute),
-        proxy(proxyOptionsAuthRoute)]
+      middleware: getMiddleware()
     }
   }, done);
 });
+
+function getMiddleware()
+{
+  var proxyOptionsAccessControl = function(req,res, next){
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        next();
+  };
+
+  var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+  var proxyUrl =  paths.localAuthEndpoint;
+  if(env == 'production')
+  {
+    var proxyUrl =  paths.remoteAuthEndpoint;
+  }
+
+
+  var proxyOptionsApiRoute = url.parse(proxyUrl +  '/api') ;
+  proxyOptionsApiRoute.route = '/api';
+
+  var proxyOptionsAuthRoute = url.parse(proxyUrl +  '/auth') ;
+  proxyOptionsAuthRoute.route = '/auth';
+
+  var middleware = [proxyOptionsAccessControl,  proxy(proxyOptionsApiRoute),  proxy(proxyOptionsAuthRoute)];
+
+  return middleware;
+}
 
 // this task utilizes the browsersync plugin
 // to create a dev server instance
@@ -44,10 +58,7 @@ gulp.task('serve-bundle', ['bundle'], function(done) {
     port: process.env.PORT || 9000,
     server: {
       baseDir: ['.'],
-      middleware: function(req, res, next) {
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        next();
-      }
+      middleware: getMiddleware()
     }
   }, done);
 });
@@ -56,6 +67,7 @@ gulp.task('serve-prod', ['export'], function() {
   connect.server({
     root: [paths.exportSrv],
     port: process.env.PORT || 9000,
+    // middleware: getMiddleware(),
     livereload: false
   });
 });

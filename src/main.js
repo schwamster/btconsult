@@ -1,5 +1,5 @@
 import 'bootstrap';
-import config from './auth-config';
+import config from 'auth-config';
 
 export function configure(aurelia) {
   aurelia.use
