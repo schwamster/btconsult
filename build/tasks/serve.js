@@ -1,5 +1,4 @@
 var gulp = require('gulp');
-var connect = require('gulp-connect');
 var browserSync = require('browser-sync');
 var proxy = require('proxy-middleware');
 var url = require('url');
@@ -64,10 +63,26 @@ gulp.task('serve-bundle', ['bundle'], function(done) {
 });
 
 gulp.task('serve-prod', ['export'], function() {
-  connect.server({
-    root: [paths.exportSrv],
-    port: process.env.PORT || 9000,
-    // middleware: getMiddleware(),
-    livereload: false
+ var express = require('express');
+ var app = express();
+
+ app.use(express.static(paths.exportSrv));
+
+ app.get('/', function(req, res) {
+     res.sendfile(paths.exportSrv + "/index.html");
+ });
+
+ var proxyUrl =  paths.remoteAuthEndpoint;
+
+ var proxyOptionsAuthRoute = url.parse(proxyUrl +  '/auth') ;
+ proxyOptionsAuthRoute.route = '/auth';
+
+ app.use(proxy(proxyOptionsAuthRoute));
+
+ app.use(function(req, res, next) {
+   res.header("Access-Control-Allow-Origin", "*");
+   next();
   });
+
+ app.listen(5001);
 });
