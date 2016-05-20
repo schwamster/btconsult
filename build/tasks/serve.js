@@ -35,7 +35,6 @@ function getMiddleware()
     var proxyUrl =  paths.remoteAuthEndpoint;
   }
 
-
   var proxyOptionsApiRoute = url.parse(proxyUrl +  '/api') ;
   proxyOptionsApiRoute.route = '/api';
 
@@ -72,12 +71,23 @@ gulp.task('serve-prod', ['export'], function() {
      res.sendfile(paths.exportSrv + "/index.html");
  });
 
- var proxyUrl =  paths.remoteAuthEndpoint;
+ var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+ var proxyUrl =  paths.localAuthEndpoint;
+ if(env == 'production')
+ {
+   var proxyUrl =  paths.remoteAuthEndpoint;
+ }
 
  var proxyOptionsAuthRoute = url.parse(proxyUrl +  '/auth') ;
  proxyOptionsAuthRoute.route = '/auth';
 
+ var proxyOptionsApiRoute = url.parse(proxyUrl +  '/api') ;
+ proxyOptionsApiRoute.route = '/api';
+
  app.use(proxy(proxyOptionsAuthRoute));
+
+ app.use(proxy(proxyOptionsApiRoute));
 
  app.use(function(req, res, next) {
    res.header("Access-Control-Allow-Origin", "*");
@@ -85,4 +95,5 @@ gulp.task('serve-prod', ['export'], function() {
   });
  var port = process.env.PORT || 9000;
  app.listen(port);
+ console.log("running on " + port);
 });
